@@ -1,0 +1,19 @@
+# Machine Learning & Federated Learning
+torch>=2.0.0
+torchvision
+torchaudio
+torch-geometric
+flwr>=1.5.0
+
+# Multi-Agent LLM Frameworks
+pyautogen>=0.2.0
+langchain
+openai
+
+# Security & Utilities
+python-dotenv
+cryptography
+pydantic
+numpy
+pandas
+google-generativeai>=0.4.0
