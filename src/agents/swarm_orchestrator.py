@@ -12,20 +12,38 @@ logger = logging.getLogger("Medica-Empower-Pro-Orchestrator")
 
 class SecureSwarmSystem:
     def __init__(self):
-        """Initializes the secure Multi-Agent Swarm for medical diagnosis."""
-        # Load environment variables securely
+        """Initializes the secure Multi-Agent Swarm with a Dual-Engine Auto-Fallback."""
         load_dotenv()
-        self.api_key = os.getenv("OPENAI_API_KEY")
+        self.gemini_key = os.getenv("GEMINI_API_KEY")
+        self.groq_key = os.getenv("GROQ_API_KEY")
         
-        if not self.api_key:
-            logger.error("CRITICAL: API Key not found in environment.")
-            raise ValueError("System Initialization Failed: Missing secure credentials.")
+        if not self.gemini_key or not self.groq_key:
+            logger.error("CRITICAL: Missing API Keys in environment.")
+            raise ValueError("System Initialization Failed: Secure credentials incomplete.")
             
+        # The Dual-Engine Config List
+        # AutoGen will try Gemini first. If it hits a rate limit or fails, it instantly falls back to Groq.
+        # The Dual-Engine Config List (Groq Promoted to Primary)
         self.llm_config = {
-            "config_list": [{"model": "gpt-4-turbo-preview", "api_key": self.api_key}],
-            "temperature": 0.1, # Low temperature for highly deterministic, clinical outputs
+            "config_list": [
+                {
+                    # Tier 1: Primary Engine (Meta Llama 3 70B via Groq)
+                    # Uses standard OpenAI structure, flawless AutoGen integration, massive free quota.
+                    "model": "llama-3.3-70b-versatile", 
+                    "api_key": self.groq_key,
+                    "api_type": "openai",
+                    "base_url": "https://api.groq.com/openai/v1" 
+                },
+                {
+                    # Tier 2: Fallback Engine (Gemini 2.5 Flash)
+                    "model": "gemini-2.5-flash",
+                    "api_key": self.gemini_key,
+                    "api_type": "google"
+                }
+            ],
+            "temperature": 0.1, 
         }
-        logger.info("Secure Swarm System Initialized.")
+        logger.info("Secure Swarm System Initialized: Groq Primary -> Gemini Fallback.")
 
     def build_agents(self):
         """Constructs the specialized medical agents."""
@@ -44,7 +62,7 @@ class SecureSwarmSystem:
 
         chief_oncologist = AssistantAgent(
             name="Chief_Oncologist_Agent",
-            system_message="You are the lead physician. Synthesize multi-modal inputs. Mediate discrepancies. Output a structured, actionable treatment plan.",
+            system_message="You are the lead physician. Synthesize multi-modal inputs. Mediate discrepancies. Output a structured, actionable treatment plan. When the final plan is complete, you MUST end your response with the exact word: TERMINATE.",
             llm_config=self.llm_config,
         )
 
@@ -52,7 +70,8 @@ class SecureSwarmSystem:
             name="Secure_Data_Pipeline",
             human_input_mode="NEVER",
             max_consecutive_auto_reply=10,
-            code_execution_config=False # Prevent malicious code execution
+            is_termination_msg=lambda msg: "TERMINATE" in msg.get("content", "").upper(), # <-- The Kill Switch
+            code_execution_config=False 
         )
         
         return patient_proxy, [radiologist, pharmacologist, chief_oncologist]

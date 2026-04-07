@@ -6,7 +6,12 @@ torch-geometric
 flwr>=1.5.0
 
 # Multi-Agent LLM Frameworks
-pyautogen>=0.2.0
+autogen>=0.11.0
+autogen[gemini]
+google-generativeai>=0.4.0
+vertexai
+Pillow
+jsonschema
 langchain
 openai
 
