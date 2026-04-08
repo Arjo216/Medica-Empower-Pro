@@ -64,8 +64,8 @@ graph TD
 
     style A fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#fff
     style B fill:#0f172a,stroke:#10b981,stroke-width:2px,color:#fff
-    style Perception fill:transparent,stroke:#64748b,stroke-width:2px,stroke-dasharray: 5 5
-    style Cognition fill:#1e293b,stroke:#8b5cf6,stroke-width:2px,color:#fff
+    style Perception fill:#1e293b,stroke:#64748b,stroke-width:2px,color:#fff
+    style Cognition fill:transparent,stroke:#8b5cf6,stroke-width:2px,stroke-dasharray: 5 5
 ```
 ---
 
