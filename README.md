@@ -28,27 +28,30 @@ Rather than relying on static training data, the cognitive layer executes **Live
 
 ```mermaid
 graph TD
-    subgraph Frontend [Presentation Layer]
+    %% General link style to force light-colored arrows for maximum visibility on all backgrounds
+    linkStyle default stroke:white
+
+    subgraph PresentationLayer [Presentation Layer]
         A[React / Streamlit Dashboard]
     end
 
-    subgraph Backend [FastAPI Orchestration Bridge]
+    subgraph BridgeLayer [FastAPI Orchestration Bridge]
         B(Secure Ingestion API)
     end
 
-    subgraph Perception [Deep Learning Engine]
+    subgraph DeepLearningLayer [Deep Learning Engine]
         C{Federated Aggregator}
         D[Swin-UNETR Vision Transformer]
         E[Genomic Multi-Drug GNN]
     end
 
-    subgraph Cognition [Cognitive Swarm Layer]
+    subgraph CognitiveLayer [Cognitive Swarm Layer]
         F((Radiologist Agent))
         G((Pharmacologist Agent))
         H{Chief Oncologist}
     end
 
-    subgraph External [Live Knowledge]
+    subgraph ExternalLayer [Live Knowledge]
         I[(US NLM PubMed API)]
     end
 
@@ -62,10 +65,18 @@ graph TD
     H -->|Markdown Plan| B
     B -->|JSON Payload| A
 
-    style A fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#fff
-    style B fill:#0f172a,stroke:#10b981,stroke-width:2px,color:#fff
-    style Perception fill:#1e293b,stroke:#64748b,stroke-width:2px,color:#fff
-    style Cognition fill:transparent,stroke:#8b5cf6,stroke-width:2px,stroke-dasharray: 5 5
+    %% Node and Subgraph Styling
+    classDef darkNode fill:#0f172a,color:#fff,stroke-width:2px;
+
+    %% Assign all nodes to the general darkNode class
+    class A,B,C,D,E,F,G,H,I darkNode;
+
+    %% Subgraph-specific styling for container outlines and solid, deep dark backgrounds
+    style PresentationLayer fill:#0f172a,stroke:#38bdf8,stroke-width:2px; %% Blue outline
+    style BridgeLayer fill:#0f172a,stroke:#10b981,stroke-width:2px; %% Green outline
+    style DeepLearningLayer fill:#0f172a,stroke:#64748b,stroke-width:2px,stroke-dasharray: 5 5; %% Grey dashed outline for engine
+    style CognitiveLayer fill:#0f172a,stroke:#8b5cf6,stroke-width:2px,stroke-dasharray: 5 5; %% Purple dashed outline for layer
+    style ExternalLayer fill:#0f172a,stroke:#f59e0b,stroke-width:2px; %% Amber outline for External
 ```
 ---
 
