@@ -86,7 +86,7 @@ graph TD
 
 ### 2. The Cognitive Swarm (AutoGen)
 * **Role-Based Access Control (RBAC):** Strict hierarchy where subordinate agents analyze data, but only the Chief Oncologist holds the `TERMINATE` execution switch.
-* **Dual-Engine High-Availability:** Features a primary, low-latency execution loop via **Groq (Llama-3.1-8B-Instant)** with an automatic fallback protocol to **Google (Gemini-2.0-Flash)** to bypass `429` and `503` cloud outages.
+* **Dual-Engine High-Availability:** Features a primary, low-latency execution loop via **Groq (Llama-3.1-8B-Instant)** and **Groq (Llama-3.3-70B-Versatile)** with an automatic fallback protocol to **Google (Gemini-2.0-Flash)** and **Google (Gemini-2.5-Flash)** to bypass `429` and `503` cloud outages.
 
 ### 3. Live RAG Tooling
 * The Swarm is equipped with executable Python tools. Subordinate agents autonomously generate dynamic queries to scrape the **Live PubMed API**, ensuring treatment protocols are backed by the absolute latest clinical trials.
