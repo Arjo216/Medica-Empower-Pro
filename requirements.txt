@@ -1,3 +1,8 @@
+# API & Orchestration Bridge
+fastapi>=0.100.0
+uvicorn[standard]>=0.23.0
+requests>=2.31.0
+
 # Machine Learning & Federated Learning
 torch>=2.0.0
 torchvision
@@ -21,4 +26,3 @@ cryptography
 pydantic
 numpy
 pandas
-google-generativeai>=0.4.0
