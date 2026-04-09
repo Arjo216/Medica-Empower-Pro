@@ -3,6 +3,9 @@ fastapi>=0.100.0
 uvicorn[standard]>=0.23.0
 requests>=2.31.0
 
+# Frontend / UI Dashboard
+streamlit
+
 # Machine Learning & Federated Learning
 torch>=2.0.0
 torchvision
