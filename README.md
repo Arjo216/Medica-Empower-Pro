@@ -117,7 +117,7 @@ graph TD
 
 ### 1. Clone & Configure
 ```bash
-git clone [https://github.com/yourusername/Medica-Empower-Pro.git](https://github.com/yourusername/Medica-Empower-Pro.git)
+git clone [https://github.com/Arjo216/Medica-Empower-Pro](https://github.com/Arjo216/Medica-Empower-Pro)
 cd Medica-Empower-Pro
 
 # Create a .env file in the root directory
